@@ -1,5 +1,5 @@
 # ============ 构建阶段 ============
-FROM node:20-alpine AS builder
+FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/node:20-alpine AS builder
 
 WORKDIR /app
 
@@ -13,7 +13,7 @@ COPY src ./src
 RUN npm run build
 
 # ============ 运行阶段 ============
-FROM node:20-alpine AS runner
+FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/node:20-alpine AS runner
 
 WORKDIR /app
 

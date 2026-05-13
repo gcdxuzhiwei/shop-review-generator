@@ -1,5 +1,5 @@
 # ============ 构建阶段 ============
-FROM node:20-alpine AS builder
+FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/node:20-alpine AS builder
 
 WORKDIR /app
 
@@ -11,7 +11,7 @@ COPY src ./src
 RUN npm run build
 
 # ============ 运行阶段 ============
-FROM nginx:1.27-alpine AS runner
+FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/nginx:1.27-alpine AS runner
 
 # 自定义 nginx 配置（含 /api 反代）
 COPY nginx.conf /etc/nginx/conf.d/default.conf
