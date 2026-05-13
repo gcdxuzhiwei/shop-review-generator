@@ -1,0 +1,223 @@
+/* ============================================================
+ *  全局主题：暖陶美食风 · 亮/暗双模式（跟随系统 prefers-color-scheme）
+ * ============================================================ */
+
+:root {
+  /* 亮色 · 暖奶油 → 陶土珊瑚 */
+  --bg-grad:
+    radial-gradient(1200px 800px at 10% -10%, #fef3c7 0%, transparent 60%),
+    radial-gradient(1000px 700px at 110% 10%, #fecaca 0%, transparent 55%),
+    linear-gradient(160deg, #fff8ec 0%, #ffe8d3 45%, #fcd0b8 100%);
+
+  --card-bg: rgba(255, 255, 255, 0.78);
+  --card-bg-soft: rgba(255, 251, 240, 0.9);
+  --card-border: rgba(255, 255, 255, 0.9);
+  --card-shadow:
+    0 24px 60px -24px rgba(180, 83, 9, 0.28),
+    0 2px 6px -2px rgba(180, 83, 9, 0.08);
+
+  --text-primary: #2b1d15;
+  --text-secondary: #7a5a46;
+  --text-muted: #a98670;
+
+  --accent: #e2724b; /* 陶土珊瑚 */
+  --accent-2: #f0a040; /* 暖金 */
+  --accent-3: #7aa17a; /* 鼠尾草绿 */
+  --accent-soft: rgba(226, 114, 75, 0.22);
+  --accent-grad: linear-gradient(135deg, #f0a040 0%, #e2724b 55%, #c2410c 100%);
+
+  --input-bg: #ffffff;
+  --input-border: rgba(226, 114, 75, 0.25);
+  --input-border-focus: #e2724b;
+
+  --danger-bg: #fef2f2;
+  --danger-fg: #b42318;
+  --danger-border: rgba(220, 38, 38, 0.2);
+
+  --badge-bg: rgba(226, 114, 75, 0.12);
+  --badge-fg: #c2410c;
+
+  --divider: linear-gradient(
+    90deg,
+    transparent,
+    rgba(226, 114, 75, 0.45),
+    transparent
+  );
+
+  --orb-1: radial-gradient(
+    circle at 30% 30%,
+    rgba(240, 160, 64, 0.55),
+    transparent 60%
+  );
+  --orb-2: radial-gradient(
+    circle at 70% 40%,
+    rgba(226, 114, 75, 0.55),
+    transparent 60%
+  );
+  --orb-3: radial-gradient(
+    circle at 50% 60%,
+    rgba(122, 161, 122, 0.4),
+    transparent 60%
+  );
+  --orb-opacity: 0.9;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* 暗色 · 深巧克力暖夜 */
+    --bg-grad:
+      radial-gradient(
+        1200px 800px at 10% -10%,
+        rgba(226, 114, 75, 0.22) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        1000px 700px at 110% 10%,
+        rgba(240, 160, 64, 0.18) 0%,
+        transparent 55%
+      ),
+      linear-gradient(160deg, #1a0f0a 0%, #24150d 45%, #2d1a11 100%);
+
+    --card-bg: rgba(40, 24, 20, 0.72);
+    --card-bg-soft: rgba(52, 32, 24, 0.72);
+    --card-border: rgba(255, 200, 160, 0.12);
+    --card-shadow:
+      0 24px 60px -24px rgba(0, 0, 0, 0.6), 0 2px 6px -2px rgba(0, 0, 0, 0.35);
+
+    --text-primary: #fff2e4;
+    --text-secondary: #d8b79a;
+    --text-muted: #a68770;
+
+    --accent: #f08a5d;
+    --accent-2: #f5b85d;
+    --accent-3: #9ec29e;
+    --accent-soft: rgba(240, 138, 93, 0.28);
+    --accent-grad: linear-gradient(
+      135deg,
+      #f5b85d 0%,
+      #f08a5d 55%,
+      #e2724b 100%
+    );
+
+    --input-bg: rgba(30, 18, 14, 0.8);
+    --input-border: rgba(240, 160, 64, 0.25);
+    --input-border-focus: #f5b85d;
+
+    --danger-bg: rgba(180, 35, 24, 0.18);
+    --danger-fg: #ffb4a8;
+    --danger-border: rgba(255, 120, 100, 0.28);
+
+    --badge-bg: rgba(245, 184, 93, 0.14);
+    --badge-fg: #f5b85d;
+
+    --divider: linear-gradient(
+      90deg,
+      transparent,
+      rgba(245, 184, 93, 0.45),
+      transparent
+    );
+
+    --orb-1: radial-gradient(
+      circle at 30% 30%,
+      rgba(240, 160, 64, 0.45),
+      transparent 60%
+    );
+    --orb-2: radial-gradient(
+      circle at 70% 40%,
+      rgba(226, 114, 75, 0.5),
+      transparent 60%
+    );
+    --orb-3: radial-gradient(
+      circle at 50% 60%,
+      rgba(122, 161, 122, 0.35),
+      transparent 60%
+    );
+    --orb-opacity: 0.55;
+  }
+}
+
+/* ---------- reset ---------- */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-grad);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+input,
+textarea,
+button {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- 全局动画关键帧 ---------- */
+@keyframes floatOrb {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -24px, 0) scale(1.08);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseDot {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes breath {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+}

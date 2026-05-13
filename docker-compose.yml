@@ -1,0 +1,31 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: shop-review-backend:latest
+    container_name: shop-review-backend
+    restart: unless-stopped
+    env_file:
+      - path: ./backend/.env
+        required: false
+    networks:
+      - shop-review-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: shop-review-frontend:latest
+    container_name: shop-review-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "10482:80"
+    networks:
+      - shop-review-net
+
+networks:
+  shop-review-net:
+    driver: bridge
