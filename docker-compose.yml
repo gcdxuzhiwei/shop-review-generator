@@ -9,6 +9,8 @@ services:
     env_file:
       - path: ./backend/.env
         required: false
+    environment:
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
     networks:
       - shop-review-net
 
