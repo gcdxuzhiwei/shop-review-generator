@@ -7,10 +7,7 @@ services:
     container_name: shop-review-backend
     restart: unless-stopped
     env_file:
-      - path: ./backend/.env
-        required: false
-    environment:
-      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY:-}
+      - ./backend/.env
     networks:
       - shop-review-net
 
