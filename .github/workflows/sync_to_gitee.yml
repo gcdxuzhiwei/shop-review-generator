@@ -16,5 +16,6 @@ jobs:
           dst: gitee/suesxuzhiwei
           dst_key: ${{ secrets.GITEE_PASSWORD }}
           dst_token: ${{ secrets.GITEE_PASSWORD }}
+          white_list: shop-review-generator
           account_type: user
           force_update: true
