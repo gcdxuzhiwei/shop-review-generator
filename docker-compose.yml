@@ -7,7 +7,8 @@ services:
     container_name: shop-review-backend
     restart: unless-stopped
     env_file:
-      - ./backend/.env
+      - path: ./backend/.env
+        required: false
     networks:
       - shop-review-net
 
