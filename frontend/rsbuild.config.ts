@@ -7,9 +7,10 @@ export default defineConfig({
     title: "AI 探店点评生成器",
   },
   server: {
+    base: "/dp",
     port: 10482,
     proxy: {
-      "/api": {
+      "/dp/api": {
         target: "http://localhost:10483",
         changeOrigin: true,
       },

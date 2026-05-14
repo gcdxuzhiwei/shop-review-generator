@@ -29,7 +29,7 @@ export default function App() {
     setCopied(false);
 
     try {
-      const res = await fetch("/api/review/generate", {
+      const res = await fetch("/dp/api/review/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

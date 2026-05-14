@@ -19,13 +19,13 @@ async function bootstrap() {
     }),
   );
 
-  app.setGlobalPrefix("api");
+  app.setGlobalPrefix("dp/api");
 
   const port = 10483;
 
   await app.listen(port);
   // eslint-disable-next-line no-console
-  console.log(`🚀 后端已启动: http://localhost:${port}/api`);
+  console.log(`🚀 后端已启动: http://localhost:${port}/dp/api`);
 }
 
 bootstrap();

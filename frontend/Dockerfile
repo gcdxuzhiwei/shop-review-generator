@@ -17,7 +17,7 @@ FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/nginx:1.27-alpine AS run
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # 拷贝构建产物
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html/dp
 
 EXPOSE 80
 
