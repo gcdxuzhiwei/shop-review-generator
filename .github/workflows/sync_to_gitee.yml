@@ -12,8 +12,8 @@ jobs:
       - name: Mirror the GitHub repo to Gitee
         uses: Yikun/gitee-mirror-action@master
         with:
-          src: github/gcdxuzhiwei/shop-review-generator
-          dst: gitee/suesxuzhiwei/shop-review-generator
+          src: github/gcdxuzhiwei
+          dst: gitee/suesxuzhiwei
           dst_key: ${{ secrets.GITEE_PASSWORD }}
           dst_token: ${{ secrets.GITEE_PASSWORD }}
           account_type: user
