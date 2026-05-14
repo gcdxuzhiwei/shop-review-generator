@@ -5,7 +5,13 @@ export default defineConfig({
   plugins: [pluginReact()],
   html: {
     title: "AI 探店点评生成器",
-    favicon: "./public/favicon.svg",
+    favicon: "./public/favicon-32.png",
+    tags: [
+      {
+        tag: "link",
+        attrs: { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      },
+    ],
     appIcon: {
       name: "AI 探店点评生成器",
       icons: [
