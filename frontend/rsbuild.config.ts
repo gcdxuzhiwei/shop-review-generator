@@ -5,6 +5,7 @@ export default defineConfig({
   plugins: [pluginReact()],
   html: {
     title: "AI 探店点评生成器",
+    favicon: "./public/favicon.svg",
   },
   server: {
     base: "/dp",

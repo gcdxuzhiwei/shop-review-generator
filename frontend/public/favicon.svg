@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="bowl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff8c42"/>
+      <stop offset="100%" stop-color="#e05a2b"/>
+    </linearGradient>
+  </defs>
+  <!-- Bowl -->
+  <path d="M4 14 Q4 26 16 26 Q28 26 28 14 Z" fill="url(#bowl)"/>
+  <!-- Bowl rim -->
+  <path d="M2 14 L30 14 L30 16 Q16 18 2 16 Z" fill="#d14e1e"/>
+  <!-- Steam lines -->
+  <path d="M12 8 Q12 4 14 4 Q16 4 16 8" stroke="#ffb380" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M16 6 Q16 2 18 2 Q20 2 20 6" stroke="#ffcc80" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Noodles -->
+  <path d="M8 18 Q12 20 16 18 Q20 16 24 18" stroke="#ffe4b5" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M9 21 Q14 23 18 21 Q22 19 25 21" stroke="#ffe4b5" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+</svg>

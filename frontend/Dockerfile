@@ -8,6 +8,7 @@ RUN npm ci
 
 COPY tsconfig.json rsbuild.config.ts ./
 COPY src ./src
+COPY public ./public
 RUN npm run build
 
 # ============ 运行阶段 ============
