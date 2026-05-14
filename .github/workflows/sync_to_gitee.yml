@@ -3,20 +3,27 @@ name: Sync to Gitee
 on:
   push:
     branches:
-      - main
+      - master # 如果你的主分支是 main，请改为 main
 
 jobs:
-  build:
+  sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Mirror the GitHub repo to Gitee
-        uses: Yikun/gitee-mirror-action@master
+      - name: Checkout Code
+        uses: actions/checkout@v4
         with:
-          src: github/gcdxuzhiwei
-          dst: gitee/suesxuzhiwei
-          dst_key: ${{ secrets.GITEE_PASSWORD }}
-          dst_token: ${{ secrets.GITEE_PASSWORD }}
-          static_list: shop-review-generator
-          clone_style: "https"
-          account_type: user
-          force_update: true
+          fetch-depth: 0 # 必须获取完整历史才能推送
+
+      - name: Push to Gitee
+        env:
+          # 使用你已经在 Secrets 里配置好的变量
+          GITEE_USER: "suesxuzhiwei"
+          GITEE_TOKEN: ${{ secrets.GITEE_PASSWORD }}
+        run: |
+          # 1. 配置远程仓库地址 (带上 Token 认证)
+          # 注意：这里使用了 HTTPS 动态拼接鉴权信息
+          REMOTE_URL="https://suesxuzhiwei:${GITEE_TOKEN}@gitee.com/suesxuzhiwei/shop-review-generator.git"
+
+          # 2. 推送当前分支到 Gitee
+          # 强制推送以确保两边完全同步
+          git push -f $REMOTE_URL master:master
