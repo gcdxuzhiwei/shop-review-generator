@@ -35,11 +35,10 @@ export class ReviewService {
     }
 
     const amapKey = this.config.get<string>("AMAP_KEY");
-    let region: any = undefined; // citycode，adcode，cityname；cityname
+    let region: any = undefined;
     let amapData: any = undefined;
     if (amapKey) {
       if (ip) {
-        console.log("ip", ip);
         try {
           const { data } = await axios.get("https://restapi.amap.com/v3/ip", {
             params: {
@@ -47,7 +46,7 @@ export class ReviewService {
               ip,
             },
           });
-          region = data?.city;
+          region = data?.city?.length ? data.city : undefined;
         } catch (err) {
           const axiosErr = err as AxiosError<any>;
           const status = axiosErr.response?.status;
@@ -56,10 +55,9 @@ export class ReviewService {
             axiosErr.response?.data?.message ||
             axiosErr.message ||
             "未知错误";
-          this.logger.error(`调用 高德place 失败: ${status ?? ""} ${detail}`);
+          this.logger.error(`调用 高德ip 失败: ${status ?? ""} ${detail}`);
         }
       }
-      console.log("region", region);
       try {
         const { data } = await axios.get(
           "https://restapi.amap.com/v5/place/text",
@@ -73,7 +71,33 @@ export class ReviewService {
             },
           },
         );
-        amapData = data?.pois?.[0];
+        amapData = data?.pois?.[0] || undefined;
+
+        if (region && !amapData) {
+          try {
+            const { data } = await axios.get(
+              "https://restapi.amap.com/v5/place/text",
+              {
+                params: {
+                  key: amapKey,
+                  keywords: dto.shopName,
+                  show_fields: "business",
+                  page_size: 1,
+                },
+              },
+            );
+            amapData = data?.pois?.[0] || undefined;
+          } catch (err) {
+            const axiosErr = err as AxiosError<any>;
+            const status = axiosErr.response?.status;
+            const detail =
+              axiosErr.response?.data?.error?.message ||
+              axiosErr.response?.data?.message ||
+              axiosErr.message ||
+              "未知错误";
+            this.logger.error(`调用 高德place 失败: ${status ?? ""} ${detail}`);
+          }
+        }
       } catch (err) {
         const axiosErr = err as AxiosError<any>;
         const status = axiosErr.response?.status;
@@ -140,7 +164,6 @@ export class ReviewService {
   }
 
   private buildPrompt(dto: GenerateReviewDto, amapData: any): string {
-    console.log("amapData", JSON.stringify(amapData));
     const { shopName, shopType } = dto;
     const typeLine = shopType ? `店铺类型：${shopType}\n` : "";
     let amapLine = "";
