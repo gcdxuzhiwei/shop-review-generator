@@ -1,9 +1,13 @@
 import { NestFactory } from "@nestjs/core";
 import { ValidationPipe } from "@nestjs/common";
+import { NestExpressApplication } from "@nestjs/platform-express";
 import { AppModule } from "./app.module";
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  // 信任反向代理（Nginx），使 req.ip 取到真实客户端 IP
+  app.set("trust proxy", 1);
 
   // 开启 CORS 方便前端本地调用
   app.enableCors({

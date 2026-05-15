@@ -19,7 +19,10 @@ export class ReviewService {
 
   constructor(private readonly config: ConfigService) {}
 
-  async generate(dto: GenerateReviewDto): Promise<{ review: string }> {
+  async generate(
+    dto: GenerateReviewDto,
+    ip: string,
+  ): Promise<{ review: string }> {
     const apiKey = this.config.get<string>("DEEPSEEK_API_KEY");
     const baseUrl = "https://api.deepseek.com/v1";
     const model = "deepseek-v4-flash";
@@ -31,23 +34,74 @@ export class ReviewService {
       );
     }
 
-    const prompt = this.buildPrompt(dto);
+    const amapKey = this.config.get<string>("AMAP_KEY");
+    let region: any = undefined; // citycode，adcode，cityname；cityname
+    let amapData: any = undefined;
+    if (amapKey) {
+      if (ip) {
+        console.log("ip", ip);
+        try {
+          const { data } = await axios.get("https://restapi.amap.com/v3/ip", {
+            params: {
+              key: amapKey,
+              ip,
+            },
+          });
+          region = data?.city;
+        } catch (err) {
+          const axiosErr = err as AxiosError<any>;
+          const status = axiosErr.response?.status;
+          const detail =
+            axiosErr.response?.data?.error?.message ||
+            axiosErr.response?.data?.message ||
+            axiosErr.message ||
+            "未知错误";
+          this.logger.error(`调用 高德place 失败: ${status ?? ""} ${detail}`);
+        }
+      }
+      console.log("region", region);
+      try {
+        const { data } = await axios.get(
+          "https://restapi.amap.com/v5/place/text",
+          {
+            params: {
+              key: amapKey,
+              keywords: dto.shopName,
+              show_fields: "business",
+              page_size: 1,
+              region,
+            },
+          },
+        );
+        amapData = data?.pois?.[0];
+      } catch (err) {
+        const axiosErr = err as AxiosError<any>;
+        const status = axiosErr.response?.status;
+        const detail =
+          axiosErr.response?.data?.error?.message ||
+          axiosErr.response?.data?.message ||
+          axiosErr.message ||
+          "未知错误";
+        this.logger.error(`调用 高德place 失败: ${status ?? ""} ${detail}`);
+      }
+    }
+
+    const prompt = this.buildPrompt(dto, amapData);
+
+    const messages = [
+      {
+        role: "system",
+        content: buildSystemPrompt(),
+      },
+      { role: "user", content: prompt },
+    ];
 
     try {
       const { data } = await axios.post<DeepSeekChatResponse>(
         `${baseUrl.replace(/\/$/, "")}/chat/completions`,
         {
           model,
-          messages: [
-            {
-              role: "system",
-              content: buildSystemPrompt(),
-            },
-            { role: "user", content: prompt },
-          ],
-          temperature: 0.8,
-          max_tokens: 600,
-          stream: false,
+          messages,
         },
         {
           headers: {
@@ -85,13 +139,59 @@ export class ReviewService {
     }
   }
 
-  private buildPrompt(dto: GenerateReviewDto): string {
+  private buildPrompt(dto: GenerateReviewDto, amapData: any): string {
+    console.log("amapData", JSON.stringify(amapData));
     const { shopName, shopType } = dto;
     const typeLine = shopType ? `店铺类型：${shopType}\n` : "";
-    return (
-      `店铺名称：${shopName}\n` +
-      typeLine +
-      "请根据该店的大众印象和搜索常识，模拟一篇真实的随笔评价。"
-    );
+    let amapLine = "";
+    if (amapData) {
+      amapLine += "【高德地图事实参考】\n";
+      if (amapData.name) {
+        amapLine += `- 名称：${amapData.name}\n`;
+      }
+      if (amapData.type) {
+        amapLine += `- 所属类型：${amapData.type}\n`;
+      }
+      if (amapData.pname) {
+        amapLine += `- 所属省份：${amapData.pname}\n`;
+      }
+      if (amapData.cityname) {
+        amapLine += `- 所属城市：${amapData.cityname}\n`;
+      }
+      if (amapData.adname) {
+        amapLine += `- 所属区县：${amapData.adname}\n`;
+      }
+      if (amapData.address) {
+        amapLine += `- 详细地址：${amapData.address}\n`;
+      }
+      if (amapData.business?.business_area) {
+        amapLine += `- 所属商圈：${amapData.business.business_area}\n`;
+      }
+      if (amapData.business?.opentime_today) {
+        amapLine += `- 今日营业时间：${amapData.business.opentime_today}\n`;
+      }
+      if (amapData.business?.opentime_week) {
+        amapLine += `- 营业时间描述：${amapData.business.opentime_week}\n`;
+      }
+      if (amapData.business?.tag) {
+        amapLine += `- 特色内容：${amapData.business.tag}\n`;
+      }
+      if (amapData.business?.rating) {
+        amapLine += `- 评分：${amapData.business.rating}\n`;
+      }
+      if (amapData.business?.cost) {
+        amapLine += `- 人均消费：${amapData.business.cost}\n`;
+      }
+      if (amapData.business?.parking_type) {
+        amapLine += `- 停车场类型：${amapData.business.parking_type}\n`;
+      }
+      if (amapData.business?.alias) {
+        amapLine += `- 别名：${amapData.business.alias}\n`;
+      }
+      if (amapData.business?.keytag) {
+        amapLine += `- 标识：${amapData.business.keytag}\n`;
+      }
+    }
+    return `店铺名称：${shopName}\n` + typeLine + amapLine;
   }
 }
