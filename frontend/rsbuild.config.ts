@@ -4,6 +4,9 @@ import { pluginReact } from "@rsbuild/plugin-react";
 export default defineConfig({
   plugins: [pluginReact()],
   html: {
+    meta: {
+      viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0",
+    },
     title: "AI 探店点评生成器",
     favicon: "./public/favicon-32.png",
     tags: [
