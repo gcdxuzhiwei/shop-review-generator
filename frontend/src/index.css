@@ -1,151 +1,212 @@
 /* ============================================================
- *  全局主题：暖陶美食风 · 亮/暗双模式（跟随系统 prefers-color-scheme）
+ *  全局主题：Sunset Kitchen · 落日厨房
+ *  亮/暗双模式（跟随系统 prefers-color-scheme）
  * ============================================================ */
 
 :root {
-  /* 亮色 · 暖奶油 → 陶土珊瑚 */
+  /* 亮色 · 暖纸质底 */
+  --bg-base: #fbf7f2;
   --bg-grad:
-    radial-gradient(1200px 800px at 10% -10%, #fef3c7 0%, transparent 60%),
-    radial-gradient(1000px 700px at 110% 10%, #fecaca 0%, transparent 55%),
-    linear-gradient(160deg, #fff8ec 0%, #ffe8d3 45%, #fcd0b8 100%);
+    radial-gradient(
+      ellipse 900px 600px at 15% -5%,
+      rgba(212, 148, 58, 0.18) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 700px 500px at 85% 5%,
+      rgba(196, 75, 47, 0.12) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 600px 400px at 50% 95%,
+      rgba(168, 128, 92, 0.1) 0%,
+      transparent 60%
+    ),
+    linear-gradient(175deg, #fbf7f2 0%, #f5ede2 50%, #ede2d4 100%);
 
-  --card-bg: rgba(255, 255, 255, 0.78);
-  --card-bg-soft: rgba(255, 251, 240, 0.9);
-  --card-border: rgba(255, 255, 255, 0.9);
-  --card-shadow:
-    0 24px 60px -24px rgba(180, 83, 9, 0.28),
-    0 2px 6px -2px rgba(180, 83, 9, 0.08);
+  --surface: #ffffff;
+  --surface-warm: #fff9f3;
+  --surface-hover: #fef3e8;
+  --border: rgba(180, 140, 100, 0.18);
+  --border-strong: rgba(180, 140, 100, 0.35);
 
-  --text-primary: #2b1d15;
-  --text-secondary: #7a5a46;
-  --text-muted: #a98670;
+  --text-primary: #2c1810;
+  --text-secondary: #6b4c3b;
+  --text-muted: #9c7e6a;
+  --text-faint: #c4a990;
 
-  --accent: #e2724b; /* 陶土珊瑚 */
-  --accent-2: #f0a040; /* 暖金 */
-  --accent-3: #7aa17a; /* 鼠尾草绿 */
-  --accent-soft: rgba(226, 114, 75, 0.22);
-  --accent-grad: linear-gradient(135deg, #f0a040 0%, #e2724b 55%, #c2410c 100%);
+  --accent: #c44b2f;
+  --accent-hover: #a93d25;
+  --accent-soft: rgba(196, 75, 47, 0.12);
+  --accent-glow: rgba(196, 75, 47, 0.22);
+  --accent-grad: linear-gradient(135deg, #d4943a 0%, #c44b2f 50%, #9e2a1d 100%);
+
+  --gold: #d4943a;
+  --gold-soft: rgba(212, 148, 58, 0.15);
+  --sage: #6b7c5e;
+  --sage-soft: rgba(107, 124, 94, 0.12);
+
+  --shadow-card:
+    0 1px 3px rgba(44, 24, 16, 0.04), 0 8px 32px rgba(44, 24, 16, 0.08),
+    0 20px 48px -12px rgba(44, 24, 16, 0.12);
+  --shadow-elevated:
+    0 4px 12px rgba(44, 24, 16, 0.06), 0 16px 48px rgba(44, 24, 16, 0.12);
 
   --input-bg: #ffffff;
-  --input-border: rgba(226, 114, 75, 0.25);
-  --input-border-focus: #e2724b;
+  --input-border: rgba(180, 140, 100, 0.28);
+  --input-border-focus: #c44b2f;
 
-  --danger-bg: #fef2f2;
-  --danger-fg: #b42318;
-  --danger-border: rgba(220, 38, 38, 0.2);
+  --danger-bg: #fef2f1;
+  --danger-fg: #a93d25;
+  --danger-border: rgba(196, 75, 47, 0.2);
 
-  --badge-bg: rgba(226, 114, 75, 0.12);
-  --badge-fg: #c2410c;
+  --badge-bg: var(--accent-soft);
+  --badge-fg: #c44b2f;
 
   --divider: linear-gradient(
     90deg,
     transparent,
-    rgba(226, 114, 75, 0.45),
+    rgba(196, 75, 47, 0.3),
     transparent
   );
 
-  --orb-1: radial-gradient(
-    circle at 30% 30%,
-    rgba(240, 160, 64, 0.55),
+  --blob-1: radial-gradient(
+    circle at 30% 40%,
+    rgba(212, 148, 58, 0.35),
+    transparent 65%
+  );
+  --blob-2: radial-gradient(
+    circle at 70% 30%,
+    rgba(196, 75, 47, 0.3),
     transparent 60%
   );
-  --orb-2: radial-gradient(
-    circle at 70% 40%,
-    rgba(226, 114, 75, 0.55),
-    transparent 60%
+  --blob-3: radial-gradient(
+    circle at 50% 70%,
+    rgba(107, 124, 94, 0.2),
+    transparent 55%
   );
-  --orb-3: radial-gradient(
-    circle at 50% 60%,
-    rgba(122, 161, 122, 0.4),
-    transparent 60%
-  );
-  --orb-opacity: 0.9;
+  --blob-opacity: 0.7;
+
+  --font-display:
+    "Cormorant Garamond", Georgia, "Noto Serif SC", "SimSun", serif;
+  --font-body:
+    "Sora", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei",
+    sans-serif;
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* 暗色 · 深巧克力暖夜 */
+    /* 暗色 · 深可可暖夜 */
+    --bg-base: #151010;
     --bg-grad:
       radial-gradient(
-        1200px 800px at 10% -10%,
-        rgba(226, 114, 75, 0.22) 0%,
-        transparent 60%
+        ellipse 900px 600px at 15% -5%,
+        rgba(212, 148, 58, 0.1) 0%,
+        transparent 70%
       ),
       radial-gradient(
-        1000px 700px at 110% 10%,
-        rgba(240, 160, 64, 0.18) 0%,
-        transparent 55%
+        ellipse 700px 500px at 85% 5%,
+        rgba(196, 75, 47, 0.08) 0%,
+        transparent 65%
       ),
-      linear-gradient(160deg, #1a0f0a 0%, #24150d 45%, #2d1a11 100%);
+      radial-gradient(
+        ellipse 600px 400px at 50% 95%,
+        rgba(107, 124, 94, 0.06) 0%,
+        transparent 60%
+      ),
+      linear-gradient(175deg, #151010 0%, #1c1410 50%, #201812 100%);
 
-    --card-bg: rgba(40, 24, 20, 0.72);
-    --card-bg-soft: rgba(52, 32, 24, 0.72);
-    --card-border: rgba(255, 200, 160, 0.12);
-    --card-shadow:
-      0 24px 60px -24px rgba(0, 0, 0, 0.6), 0 2px 6px -2px rgba(0, 0, 0, 0.35);
+    --surface: rgba(38, 28, 22, 0.85);
+    --surface-warm: rgba(48, 34, 26, 0.7);
+    --surface-hover: rgba(58, 40, 30, 0.6);
+    --border: rgba(180, 140, 100, 0.12);
+    --border-strong: rgba(180, 140, 100, 0.25);
 
-    --text-primary: #fff2e4;
-    --text-secondary: #d8b79a;
-    --text-muted: #a68770;
+    --text-primary: #f5e6d8;
+    --text-secondary: #c4a48c;
+    --text-muted: #8c7260;
+    --text-faint: #5e4a3c;
 
-    --accent: #f08a5d;
-    --accent-2: #f5b85d;
-    --accent-3: #9ec29e;
-    --accent-soft: rgba(240, 138, 93, 0.28);
+    --accent: #e06b4f;
+    --accent-hover: #f08a6e;
+    --accent-soft: rgba(224, 107, 79, 0.18);
+    --accent-glow: rgba(224, 107, 79, 0.28);
     --accent-grad: linear-gradient(
       135deg,
-      #f5b85d 0%,
-      #f08a5d 55%,
-      #e2724b 100%
+      #e8a84c 0%,
+      #e06b4f 50%,
+      #c44b2f 100%
     );
 
-    --input-bg: rgba(30, 18, 14, 0.8);
-    --input-border: rgba(240, 160, 64, 0.25);
-    --input-border-focus: #f5b85d;
+    --gold: #e8a84c;
+    --gold-soft: rgba(232, 168, 76, 0.14);
+    --sage: #8ca07e;
+    --sage-soft: rgba(140, 160, 126, 0.14);
 
-    --danger-bg: rgba(180, 35, 24, 0.18);
-    --danger-fg: #ffb4a8;
-    --danger-border: rgba(255, 120, 100, 0.28);
+    --shadow-card:
+      0 1px 3px rgba(0, 0, 0, 0.2), 0 8px 32px rgba(0, 0, 0, 0.3),
+      0 20px 48px -12px rgba(0, 0, 0, 0.4);
+    --shadow-elevated:
+      0 4px 12px rgba(0, 0, 0, 0.25), 0 16px 48px rgba(0, 0, 0, 0.4);
 
-    --badge-bg: rgba(245, 184, 93, 0.14);
-    --badge-fg: #f5b85d;
+    --input-bg: rgba(28, 18, 14, 0.8);
+    --input-border: rgba(180, 140, 100, 0.2);
+    --input-border-focus: #e06b4f;
+
+    --danger-bg: rgba(160, 40, 30, 0.18);
+    --danger-fg: #f5a898;
+    --danger-border: rgba(240, 100, 80, 0.25);
+
+    --badge-bg: rgba(232, 168, 76, 0.15);
+    --badge-fg: #e8a84c;
 
     --divider: linear-gradient(
       90deg,
       transparent,
-      rgba(245, 184, 93, 0.45),
+      rgba(232, 168, 76, 0.3),
       transparent
     );
 
-    --orb-1: radial-gradient(
-      circle at 30% 30%,
-      rgba(240, 160, 64, 0.45),
+    --blob-1: radial-gradient(
+      circle at 30% 40%,
+      rgba(212, 148, 58, 0.2),
+      transparent 65%
+    );
+    --blob-2: radial-gradient(
+      circle at 70% 30%,
+      rgba(196, 75, 47, 0.18),
       transparent 60%
     );
-    --orb-2: radial-gradient(
-      circle at 70% 40%,
-      rgba(226, 114, 75, 0.5),
-      transparent 60%
+    --blob-3: radial-gradient(
+      circle at 50% 70%,
+      rgba(107, 124, 94, 0.12),
+      transparent 55%
     );
-    --orb-3: radial-gradient(
-      circle at 50% 60%,
-      rgba(122, 161, 122, 0.35),
-      transparent 60%
-    );
-    --orb-opacity: 0.55;
+    --blob-opacity: 0.45;
   }
 }
 
-/* ---------- reset ---------- */
-* {
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html,
 body,
 #root {
-  margin: 0;
-  padding: 0;
   min-height: 100dvh;
 }
 
@@ -155,15 +216,15 @@ html {
 }
 
 body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
-    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-family: var(--font-body);
   color: var(--text-primary);
   background: var(--bg-grad);
   background-attachment: fixed;
+  background-color: var(--bg-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
+  line-height: 1.6;
 }
 
 input,
@@ -174,24 +235,22 @@ button {
 }
 
 button {
+  cursor: pointer;
+  border: none;
+  background: none;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* ---------- 全局动画关键帧 ---------- */
-@keyframes floatOrb {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(0, -24px, 0) scale(1.08);
-  }
+::selection {
+  background: var(--accent-soft);
+  color: var(--accent);
 }
 
-@keyframes fadeUp {
+/* ---------- Animations ---------- */
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -199,12 +258,34 @@ button {
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes floatBlob {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(10px, -18px, 0) scale(1.04);
+  }
+  66% {
+    transform: translate3d(-8px, -10px, 0) scale(0.97);
+  }
+}
+
 @keyframes pulseDot {
   0%,
   80%,
   100% {
-    opacity: 0.25;
-    transform: scale(0.8);
+    opacity: 0.2;
+    transform: scale(0.7);
   }
   40% {
     opacity: 1;
@@ -212,12 +293,34 @@ button {
   }
 }
 
-@keyframes breath {
+@keyframes breathe {
   0%,
   100% {
-    opacity: 0.75;
+    opacity: 0.6;
   }
   50% {
     opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .blob,
+  .badge,
+  .card,
+  .result {
+    animation: none !important;
+  }
+  * {
+    transition-duration: 0.01ms !important;
   }
 }

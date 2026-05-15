@@ -11,6 +11,28 @@ export default defineConfig({
         tag: "link",
         attrs: { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       },
+      {
+        tag: "link",
+        attrs: {
+          rel: "preconnect",
+          href: "https://fonts.googleapis.com",
+        },
+      },
+      {
+        tag: "link",
+        attrs: {
+          rel: "preconnect",
+          href: "https://fonts.gstatic.com",
+          crossorigin: "",
+        },
+      },
+      {
+        tag: "link",
+        attrs: {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Sora:wght@300;400;500;600;700&display=swap",
+        },
+      },
     ],
     appIcon: {
       name: "AI 探店点评生成器",

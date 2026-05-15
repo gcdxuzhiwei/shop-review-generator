@@ -74,7 +74,6 @@ export default function App() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // 兜底：创建临时文本域
       const textarea = document.createElement("textarea");
       textarea.value = review;
       document.body.appendChild(textarea);
@@ -88,22 +87,27 @@ export default function App() {
 
   return (
     <div className="page">
-      <div className="orbs" aria-hidden="true">
-        <span className="orb orb-1" />
-        <span className="orb orb-2" />
-        <span className="orb orb-3" />
+      {/* Background blobs */}
+      <div className="blobs" aria-hidden="true">
+        <span className="blob blob-1" />
+        <span className="blob blob-2" />
+        <span className="blob blob-3" />
       </div>
 
       <main className="card">
+        {/* Header */}
         <header className="header">
           <div className="brand-icon" aria-hidden="true">
             🍜
           </div>
           <span className="badge">AI Powered</span>
-          <h1>AI 探店点评生成器</h1>
+          <h1>
+            AI 探店<em>点评</em>生成器
+          </h1>
           <p>输入店铺信息，一键生成地道的探店点评</p>
         </header>
 
+        {/* Form */}
         <form className="form" onSubmit={handleSubmit} noValidate>
           <label className="field">
             <span className="label">
@@ -166,14 +170,15 @@ export default function App() {
           )}
         </form>
 
+        {/* Result */}
         {review && (
           <section className="result">
             <div className="result-head">
               <span className="result-title">
-                生成结果 <em className="tag-new">新</em>
+                生成结果 <em className="tag-new">NEW</em>
               </span>
               <button className="btn ghost" type="button" onClick={handleCopy}>
-                {copied ? "已复制" : "一键复制"}
+                {copied ? "✓ 已复制" : "复制"}
               </button>
             </div>
             <div className="review-text">{review}</div>
@@ -181,7 +186,7 @@ export default function App() {
         )}
       </main>
 
-      <footer className="footer">Powered by DeepSeek · NestJS + rsbuild</footer>
+      <footer className="footer">Powered by DeepSeek · NestJS + Rsbuild</footer>
     </div>
   );
 }
